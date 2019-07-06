@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SeekBar
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -22,7 +23,21 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 
-        playgroundView.radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, resources.displayMetrics)
+        cornerRadiusSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                val r = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    progress.toFloat(),
+                    resources.displayMetrics
+                )
+                playgroundView.radius = r
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) = Unit
+
+            override fun onStopTrackingTouch(p0: SeekBar?) = Unit
+
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
