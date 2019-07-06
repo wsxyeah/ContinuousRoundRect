@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.SeekBar
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
                 (playgroundView.background as? GradientDrawable)?.let {
                     it.cornerRadius = r
                 }
+                (roundRectView.background as? GradientDrawable)?.let {
+                    it.cornerRadius = r
+                }
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) = Unit
@@ -46,6 +50,9 @@ class MainActivity : AppCompatActivity() {
         playgroundView.background?.alpha = 0
         bgSwitch.setOnCheckedChangeListener { _, isChecked ->
             playgroundView.background?.alpha = if (isChecked) 255 else 0
+        }
+        sideBySideSwitch.setOnCheckedChangeListener { _, isChecked ->
+            roundRectView.visibility = if (isChecked) View.VISIBLE else View.GONE
         }
     }
 
