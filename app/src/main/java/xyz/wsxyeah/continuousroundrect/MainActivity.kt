@@ -1,5 +1,6 @@
 package xyz.wsxyeah.continuousroundrect
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
                     resources.displayMetrics
                 )
                 playgroundView.radius = r
+                (playgroundView.background as? GradientDrawable)?.let {
+                    it.cornerRadius = r
+                }
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) = Unit
@@ -38,6 +42,11 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(p0: SeekBar?) = Unit
 
         })
+
+        playgroundView.background?.alpha = 0
+        bgSwitch.setOnCheckedChangeListener { _, isChecked ->
+            playgroundView.background?.alpha = if (isChecked) 255 else 0
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
