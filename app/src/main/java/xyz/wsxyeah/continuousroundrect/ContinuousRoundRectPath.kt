@@ -6,14 +6,13 @@ import android.graphics.RectF
 private val factors = arrayOf(0f, 0f, 0.0460f, 0.1336f, 0.2207f, 0.3486f, 0.5116f, 0.6745f, 0.8362f, 1.2819f)
 
 fun Path.continuousRoundRect(bounds: RectF, cornerRadius: Float) {
-    val radiusMax = bounds.width().coerceAtMost(bounds.height()) / factors.last() / 2
+    continuousRoundRect(bounds.left, bounds.top, bounds.right, bounds.bottom, cornerRadius)
+}
+
+fun Path.continuousRoundRect(left: Float, top: Float, right: Float, bottom: Float, cornerRadius: Float) {
+    val radiusMax = (right - left).coerceAtMost(bottom - top) / factors.last() / 2
     val radius = cornerRadius.coerceAtMost(radiusMax)
     val offsets = factors.map { radius * it }
-
-    val left = bounds.left
-    val top = bounds.top
-    val right = bounds.right
-    val bottom = bounds.bottom
 
     moveTo(left + offsets[0], top + offsets[9])
     cubicTo(
